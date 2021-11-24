@@ -1,0 +1,42 @@
+<!-- /app/templates/famillies/famillies.html -->
+{% extends "layout.html" %}
+{% block title %}Familles :: {{ config.SITE_NAME }} {% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-md-8 mb-3">
+        This is a list of famillies for botanic garden...<br>
+        This project are made just for fun...
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="list-group">
+          <p class="list-group-item list-group-item-action active">Famillies</p>
+          <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('famillies.new_family') }}" role="tab">New</a>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <caption>list of famillies from database</caption>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Family Name</th>
+                    <th scope="col">Family Details</th>
+                    <th scope="col">Family Description</th>
+                    <th scope="col">QUERY</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for family in famillies_query %}
+                <tr>
+                    <th scope="row">{{ family.family_id }}</th>
+                    <td><a href="{{ url_for('famillies.view_family', family_id=family.family_id) }}">{{ family.family_name }}</a></td>
+                    <td>{{ family.family_details }}</td>
+                    <td>{{ family.family_description }}</td>
+                    <td>{{ family }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+    </div>
+</div>
+{% endblock %}

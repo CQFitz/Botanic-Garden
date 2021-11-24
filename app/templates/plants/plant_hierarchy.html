@@ -1,0 +1,55 @@
+<!-- app/templates/plants/plant_hierarchy.html -->
+{% extends "layout.html" %}
+{% block title %}{{ plant_hierarchy.plant_hierarchy_name }} :: {{ config.SITE_NAME }}{% endblock %}
+{% block body %}
+{% from "_formhelpers.html" import render_field %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card border-light mb-3">
+            <h4 class="card-header">Hierarchy Name: {{ plant_hierarchy.plant_hierarchy_name }}</h4>
+            <div class="card-body">
+              <h5 class="card-title">Details</h5>
+              <p class="card-text">{{ plant_hierarchy.plant_hierarchy_details }}</p>
+              <a href="{{ url_for('plant_hierarchies.update_hierarchy', plant_hierarchy_id=plant_hierarchy.plant_hierarchy_id) }}" class="btn btn-primary">Edit</a>
+            </div>
+          </div>
+    </div>
+    <div class="col-md-4">
+        <ul class="list-group">
+            <li class="list-group-item active" aria-current="true">Related from</li>
+            {% if related_from %}
+                <a class="list-group-item" href="{{ url_for('plant_hierarchies.view_plant_hierarchy', plant_hierarchy_id=related_from.plant_hierarchy_id) }}">{{ related_from.plant_hierarchy_name }}</a>
+            {% else %}
+            <li class="list-group-item">{{ related_from }}</li>
+            {% endif %}
+			<li class="list-group-item active" aria-current="true">Related to</li>
+            {% if related_to %}
+                <a class="list-group-item" href="{{ url_for('plant_hierarchies.view_plant_hierarchy', plant_hierarchy_id=related_to.plant_hierarchy_id) }}">{{ related_to.plant_hierarchy_name }}</a>
+            {% else %}
+            <li class="list-group-item">{{ related_to }}</li>
+            {% endif %}
+            <li class="list-group-item active" aria-current="true">Plant from this hierarchy</li>
+            {% if plants %}
+				{% for plant in plants %}
+					{% if plant.plant_hierarchy_id == plant_hierarchy.plant_hierarchy_id %}
+            			<a class="list-group-item" href="{{ url_for('plants.view_plant', plant_id=plant.plant_id) }}">{{ plant.plant_details }}</a>
+					{% endif %}
+				{% endfor %}
+			{% else %}
+            	<li class="list-group-item">{{ plants }}</li>
+			{% endif %}
+            {% if hierarchy_category %}
+            <li class="list-group-item active" aria-current="true">Same category</li>
+                {% for info in hierarchy_category %}
+					{% if info.plant_hierarchy_id == plant_hierarchy.plant_hierarchy_id %}
+						<li class="list-group-item list-group-item-primary">{{ info.plant_hierarchy_name }}</li>
+					{% else %}
+                    	<a class="list-group-item" href="{{ url_for('plant_hierarchies.view_plant_hierarchy', plant_hierarchy_id=info.plant_hierarchy_id) }}">{{ info.plant_hierarchy_name }}</a>
+					{% endif %}
+                {% endfor %}
+            {% endif %}
+          </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

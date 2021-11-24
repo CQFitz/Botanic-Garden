@@ -1,0 +1,77 @@
+<!-- app/templates/famillies/edit_family.html -->
+{% extends "layout.html" %}
+{% block title %}Edit Family :: {{ config.SITE_NAME }} {% endblock %}
+{% block body %}
+{% from "_formhelpers.html" import render_field %}
+
+<h1>Edit Family: </h1>
+<form method="post">
+    {{ form.csrf_token }}
+    <div class="row mb-3">
+        <div class="form-group col-md-4 mb-3">
+            {{ render_field(form.family_name, class_='form-control', placeholder='Family Name', autofocus='', tabindex='1') }}
+        </div>
+
+        <div class="form-group col-md-8 mb-3">
+            {{ render_field(form.family_details, class_='form-control', placeholder='Family Details', tabindex='2') }}
+        </div>
+
+        <div class="form-group col-md-12 mb-3">
+            {{ render_field(form.family_description, class_='form-control', placeholder='Family Descriptions', tabindex='3') }}
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <input type="submit" value="UPDATE" class="btn btn-primary" tabindex="4">
+        </div>
+    </div>
+
+</form>
+
+<button type="button" class="btn btn-warning mb-3" data-bs-toggle="modal" data-bs-target="#confirmation">REMOVE</button>
+
+<div class="modal fade bg-warning" id="confirmation" tabindex="-1" aria-labelledby="delete_confirmation" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            {% if plants %}
+                {% for plant in plants %}
+                    {% if plant %}
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="delete_confirmation">The following will be deleted. Are you sure you want to continue remove?.</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-hovered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Plant Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">{{ plant.plant_id }}</th>
+                                        <td>{{ plant.plant_details }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="delete_confirmation">Are you sure you want to remove?.</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ query.family_name }} | Will be remove
+                </div>
+            {% endif %}
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-success" data-bs-target="#delete_confirmation_2" data-bs-toggle="modal" data-bs-dismiss="modal">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

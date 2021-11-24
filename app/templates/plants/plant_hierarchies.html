@@ -1,0 +1,42 @@
+<!-- app/templates/plants/plant_hierarchies.html -->
+{% extends "layout.html" %}
+{% block title %}Plant Hierarchies :: {{ config.SITE_NAME }} {% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-md-8 mb-3">
+        This is a list of plant hierarchies for botanic garden...<br>
+        This project are made just for fun...
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="list-group">
+          <p class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Plant Hierarchies</p>
+          <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('plant_hierarchies.new_hierarchy') }}" role="tab">New</a>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <caption>list of plant hierarchies from database</caption>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Parent ID</th>
+                    <th scope="col">Hierarchy Name</th>
+                    <th scope="col">Hierarchy Details</th>
+                    <th scope="col">QUERY</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for plant_hiearchy in plant_hierarchies_query %}
+                <tr>
+                    <th scope="row">{{ plant_hiearchy.plant_hierarchy_id }}</th>
+                    <td>{{ plant_hiearchy.parent_plant_hierarchy_id }}</td>
+                    <td><a href="{{ url_for('plant_hierarchies.view_plant_hierarchy', plant_hierarchy_id=plant_hiearchy.plant_hierarchy_id) }}">{{ plant_hiearchy.plant_hierarchy_name }}</a></td>
+                    <td>{{ plant_hiearchy.plant_hierarchy_details }}</td>
+                    <td>{{ plant_hiearchy }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+    </div>
+</div>
+{% endblock %}

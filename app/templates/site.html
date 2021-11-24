@@ -1,0 +1,15 @@
+<!-- /app/templates/site.html -->
+{% extends "layout.html" %}
+{% block title %}{{ config.SITE_NAME }} {% endblock %}
+{% block body %}
+<h3>Welcome to Botanic Garden</h3>
+<!-- List group -->
+<div class="list-group" id="myList" role="tablist">
+  <p class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Home</p>
+  <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('famillies.famillies') }}"  role="tab">Famillies</a>
+  <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('plant_hierarchies.plant_hierarchies') }}" role="tab">Plant Hierarchies</a>
+  <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('plants.plants') }}" role="tab">Plants</a>
+  <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('locations.locations') }}" role="tab">Locations</a>
+</div>
+
+{% endblock %}

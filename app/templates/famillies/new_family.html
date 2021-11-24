@@ -1,0 +1,30 @@
+<!-- /app/templates/famillies/new_family.html -->
+{% extends "layout.html" %}
+{% block title %}New Family :: {{ config.SITE_NAME }} {% endblock %}
+{% block body %}
+{% from "_formhelpers.html" import render_field %}
+
+<h1>New Family</h1>
+    <form method="post">
+        {{ form.csrf_token }}
+        
+        <div class="row">
+            <div class="form-group col-md-4 mb-3">
+                {{ render_field(form.family_name, class_='form-control', placeholder='Family Name', autofocus='', tabindex='1') }}
+            </div>
+
+            <div class="form-group col-md-8 mb-3">
+                {{ render_field(form.family_details, class_='form-control', placeholder='Family Details', tabindex='2') }}
+            </div>
+
+            <div class="form-group col-md-12 mb-3">
+                {{ render_field(form.family_description, class_='form-control', placeholder='Family Descriptions', tabindex='3') }}
+            </div>
+            
+            <div class="col-md-4 mb-3">
+                <input type="submit" value="ADD" class="btn btn-primary" tabindex="4">
+            </div>
+        </div>
+
+    </form>
+{% endblock %}

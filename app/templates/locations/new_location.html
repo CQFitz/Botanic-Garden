@@ -1,0 +1,24 @@
+<!-- /app/templates/locations/new_location.html -->
+{% extends "layout.html" %}
+{% block title %}New Location :: {{ config.SITE_NAME }} {% endblock %}
+{% block body %}
+{% from "_formhelpers.html" import render_field %}
+
+<h1>New Location</h1>
+    <form method="post">
+        {{ form.csrf_token }}
+        <div class="row">
+            <div class="form-group col-md-4 mb-3">
+                {{ render_field(form.location_name, class_='form-control', placeholder='Location Name', autofocus='', tabindex='1') }}
+            </div>
+
+            <div class="form-group col-md-8 mb-3">
+                {{ render_field(form.location_position, class_='form-control', placeholder='Location Position', tabindex='2') }}
+            </div>
+            
+            <div class="col-md-4 mb-3">
+                <input type="submit" value="ADD" class="btn btn-primary" tabindex="4">
+            </div>
+        </div>
+    </form>
+{% endblock %}

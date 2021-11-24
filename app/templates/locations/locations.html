@@ -1,0 +1,40 @@
+<!-- /app/templates/locations/locations.html -->
+{% extends "layout.html" %}
+{% block title %}Locations :: {{ config.SITE_NAME }} {% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-md-8 mb-3">
+        This is a list of locations for botanic garden...<br>
+        This project are made just for fun...
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="list-group">
+          <p class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Locations</p>
+          <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('plant_hierarchies.new_hierarchy') }}" role="tab">New</a>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <caption>list of locations from database</caption>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Location Name</th>
+                    <th scope="col">Location Position</th>
+                    <th scope="col">QUERY</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for location in locations_query %}
+                <tr>
+                    <th scope="row">{{ location.location_id }}</th>
+                    <td><a href="{{ url_for('locations.view_location', location_id=location.location_id) }}">{{ location.location_name }}</a></td>
+                    <td>{{ location.location_position }}</td>
+                    <td>{{ location }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+    </div>
+</div>
+{% endblock %}

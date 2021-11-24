@@ -1,0 +1,137 @@
+<!-- app/templates/plants/edit_plant_hierarchy.html -->
+{% extends "layout.html" %}
+{% block title %}Edit Plant Hierarchy :: {{ config.SITE_NAME }} {% endblock %}
+{% block body %}
+{% from "_formhelpers.html" import render_field %}
+
+<h1>Edit Plant Hierarchy: </h1>
+<form method="post">
+    {{ form.csrf_token }}
+    <div class="row">
+        <div class="form-group col-md-4 mb-3">
+            {{ render_field(form.plant_hierarchy_name, class_='form-control', placeholder='Plant Hierarchy Name', autofocus='', tabindex='1') }}
+        </div>
+
+        <div class="form-group col-md-8 mb-3">
+            {{ render_field(form.plant_hierarchy_details, class_='form-control', placeholder='Plant Hierarchy Details', tabindex='2') }}
+        </div>
+
+        <div class="form-group col-md-12 mb-3">
+            {{ render_field(form.parent_plant_hierarchy_id, class_='form-control', tabindex='3') }}
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <input type="submit" value="UPDATE" class="btn btn-primary" tabindex="4">
+        </div>
+    </div>
+
+</form>
+
+<button type="button" class="btn btn-warning mb-3" data-bs-toggle="modal" data-bs-target="#confirmation">Remove</button>
+
+<div class="modal fade bg-warning" id="confirmation" tabindex="-1" aria-labelledby="delete_confirmation" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            {% if plants %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="delete_confirmation">The following will be deleted. Are you sure you want to continue remove?.</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Plant Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for plant in plants %}
+                                {% if plant %}
+                                    <tr>
+                                        <th scope="row">{{ plant.plant_id }}</th>
+                                        <td>{{ plant.plant_details }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if hierarchies %}
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Hierarchy Name</th>
+                                    <th scope="col">Hierarchy Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for hierarchy in hierarchies %}
+                                <tr>
+                                    <th scope="row">{{ hierarchy.plant_hierarchy_id }}</th>
+                                    <td>{{ hierarchy.plant_hierarchy_name }}</td>
+                                    <td>{{ hierarchy.plant_hierarchy_details }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                </div>
+            {% else %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="delete_confirmation">Are you sure you want to remove?.</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ query.plant_hierarchy_name }} | Will be remove. {% if hierarchies %}Below will set their parent id to None.{%endif%}
+
+                    {% if hierarchies %}
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Hierarchy Name</th>
+                                    <th scope="col">Hierarchy Parent Id</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for hierarchy in hierarchies %}
+                                <tr>
+                                    <th scope="row">{{ hierarchy.plant_hierarchy_id }}</th>
+                                    <td>{{ hierarchy.plant_hierarchy_name }}</td>
+                                    <td>{{ hierarchy.parent_plant_hierarchy_id }} --> none</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endif %}
+                </div>
+            {% endif %}
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-success" data-bs-target="#delete_confirmation_2" data-bs-toggle="modal" data-bs-dismiss="modal">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bg-danger" id="delete_confirmation_2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel2">Continue Remove</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3>This action cannot be reverse!.</h3>
+            </div>
+            <div class="modal-footer">
+                <button button class="btn btn-primary" data-bs-target="#confirmation" data-bs-toggle="modal" data-bs-dismiss="modal">Go back</button>
+                <form method="post">
+                    {{ remove_form.csrf_token }}
+                    {{ remove_form.remove(class="btn btn-danger") }}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

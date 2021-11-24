@@ -1,0 +1,42 @@
+<!-- /app/templates/plants/plants.html -->
+{% extends "layout.html" %}
+{% block title %}Plants :: {{ config.SITE_NAME }} {% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-md-8 mb-3">
+        This is a list of plant for botanic garden...<br>
+        This project are made just for fun...
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="list-group">
+          <p class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Plant</p>
+          <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('plants.new_plant') }}" role="tab">New</a>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <caption>list of plants from database</caption>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Hieararchy ID</th>
+                    <th scope="col">Family ID</th>
+                    <th scope="col">Plant Details</th>
+                    <th scope="col">QUERY</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for plant in plants_query %}
+                <tr>
+                    <th scope="row">{{ plant.plant_id }}</th>
+                    <td><a href="{{ url_for('plant_hierarchies.view_plant_hierarchy', plant_hierarchy_id=plant.plant_hierarchy_id) }}">{{ plant.plant_hierarchy_id }}</a></td>
+                    <td><a href="{{ url_for('famillies.view_family', family_id=plant.family_id) }}">{{ plant.family_id }}</a></td>
+                    <td><a href="{{ url_for('plants.view_plant', plant_id=plant.plant_id) }}">{{ plant.plant_details }}</a></td>
+                    <td>{{ plant }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+    </div>
+</div>
+{% endblock %}

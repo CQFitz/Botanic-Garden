@@ -1,0 +1,20 @@
+<!-- /app/templates/locations/location.html -->
+{% extends "layout.html" %}
+{% block title %}{{ location.location_name }} :: {{ config.SITE_NAME }}{% endblock %}
+{% block body %}
+{% from "_formhelpers.html" import render_field %}
+<h1>Location ID {{location.location_id}}</h1>
+<div class="row">
+    <div class="col-md-8">
+        <div class="card border-light mb-3">
+            <h4 class="card-header">{{ location.location_name }}</h4>
+            <div class="card-body">
+              <h5 class="card-title">Posisi</h5>
+              <p class="card-text">{{ location.location_position }}</p>
+              <a href="{{ url_for('locations.update_location', location_id=location.location_id) }}" class="btn btn-primary">Edit</a>
+            </div>
+          </div>
+    </div>
+</div>
+{% if test %}test{% endif %}
+{% endblock %}
