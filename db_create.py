@@ -70,7 +70,7 @@ PLANT_HIERARCHIES = [
 ]
 
 PLANTS = [
-    # ('plant_details', 'plant_hierachy_id', 'family_id')
+    # ('plant_hierachy_id', 'family_id', 'plant_details')
     # http://theplantlist.org/1.1/browse/A/Acanthaceae/Acanthopale/
     # https://www.zimbabweflora.co.zw/speciesdata/species.php?species_id=153370
     (
