@@ -1,7 +1,8 @@
 import sqlalchemy
 
 from config import app_config
-from app.database import db_session
+from app.database import db_session, engine
+from app.models import Base, Famillies, PlantHierarchies, Locations, Plants, PlantLocations
 import app.models as models
 
 FAMILLIES = [
@@ -35,7 +36,7 @@ PLANT_HIERARCHIES = [
     (
         'Acanthaceae',
         'The family Acanthaceae is in the major group Angiosperms (Flowering plants).',
-        '',
+        '0',
     ),
     (
         'Acanthodium',
@@ -53,7 +54,7 @@ PLANT_HIERARCHIES = [
         '3'
     ),
     (
-        'Acanthopale albosetulosa C.B.Clarke'
+        'Acanthopale albosetulosa C.B.Clarke',
         'The genus Acanthopale is in the family Acanthaceae in the major group Angiosperms (Flowering plants).',
         '3'
     ),
@@ -74,14 +75,15 @@ PLANTS = [
     # http://theplantlist.org/1.1/browse/A/Acanthaceae/Acanthopale/
     # https://www.zimbabweflora.co.zw/speciesdata/species.php?species_id=153370
     (
-        'Erect or somewhat scrambling Shrub-like perennial herb, up to 2.5 m tall. Leaves opposite, largest 8-24 cm long, ovate to elliptic with a distinct drip-tip, dark green, hairy on both surfaces; petiole 2-6.5 cm long. Flowers in more or less condensed terminal racemose heads, white with purple-pink markings, softly hairy on the outside of the corolla. Capsule 11-14 mm long.',
         '3',
         '1',
+        'Acanthopale aethiogermanica Ensermu'
+        # 'Erect or somewhat scrambling Shrub-like perennial herb, up to 2.5 m tall. Leaves opposite, largest 8-24 cm long, ovate to elliptic with a distinct drip-tip, dark green, hairy on both surfaces; petiole 2-6.5 cm long. Flowers in more or less condensed terminal racemose heads, white with purple-pink markings, softly hairy on the outside of the corolla. Capsule 11-14 mm long.',
     ),
     (
-        'Acanthopale albosetulosa C.B.Clarke',
         '3',
         '1',
+        'Acanthopale albosetulosa C.B.Clarke',
     )
 ]
 
@@ -107,34 +109,32 @@ PLANT_LOCATIONS = [
 ]
 
 def add_famillies(famillies, main_class):
-    for name, details, description in famillies:
-        family = main_class(name, details, description)
+    for family_name, family_details, family_description in famillies:
+        family = main_class(family_name, family_details, family_description)
         db_session.add(family)
 
 
 def add_plant_hierarchies(plant_hierarhies, main_class):
-    for name, details, hierarchy_from in plant_hierarchies:
-        plant_hierarchy = main_class(name, details, hierarchy_from)
+    for plant_hierarchy_name, plant_hierarchy_details, plant_hierarchy_hierarchy_from in plant_hierarhies:
+        plant_hierarchy = main_class(plant_hierarchy_name, plant_hierarchy_details, plant_hierarchy_hierarchy_from)
         db_session.add(plant_hierarchy)
 
 
 def add_locations(locations, main_class):
-    for name, position in locations:
-        location = main_class(name, position)
+    for location_name, location_position in locations:
+        location = main_class(location_name, location_position)
         db_session.add(location)
 
 
 def add_plants(plants, main_class):
-    for details, family, hierarchy in plants:
-        plant = main_class(details, family, hierarchy)
+    for plant_details, family, hierarchy in plants:
+        plant = main_class(plant_details, family, hierarchy)
         db_session.add(plant)
 
-
-def init_db():
-    print("Creating Database...")
-    from app.models import Base, Famillies, PlantHierarchies, Locations, Plants, PlantLocations
-    print("Created database.")
-    Base.metadata.create_all(bind=engine)
+def add_plant_locations(plant_locations, main_class):
+    for plant_id, location_id in plant_locations:
+        plant_location = main_class(plant_id, location_id)
+        db_session.add(plant_location)
 
 
 if __name__ == '__main__':
@@ -146,7 +146,7 @@ if __name__ == '__main__':
         database_empty = True
 
     print("Creating all tables...")
-    init_db()
+    Base.metadata.create_all(bind=engine)
 
     famillies_test = models.Famillies.query.first()
     if not famillies_test:
@@ -168,7 +168,12 @@ if __name__ == '__main__':
         print("Adding location...")
         add_locations(LOCATIONS, models.Locations)
 
-    db.session.commit()
+    plant_location_test = models.PlantLocations.query.first()
+    if not plant_location_test:
+        print("Adding plant location")
+        add_plant_locations(PLANT_LOCATIONS, models.PlantLocations)
+
+    db_session.commit()
 
     if database_empty:
-        print("database empty")
+        print("All database created successfully!.")
