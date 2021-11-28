@@ -61,7 +61,7 @@ PLANT_HIERARCHIES = [
         'Acanthopsis',
         'The genus Acanthopsis is in the family Acanthaceae in the major group Angiosperms (Flowering plants).',
         '1'
-    )
+    ),
     (
         'Acanthopsis carduifolia (L.f.) Schinz',
         'The genus Acanthopsis is in the family Acanthaceae in the major group Angiosperms (Flowering plants).',
