@@ -35,7 +35,7 @@ PLANT_HIERARCHIES = [
     (
         'Acanthaceae',
         'The family Acanthaceae is in the major group Angiosperms (Flowering plants).',
-        '0',
+        '',
     ),
     (
         'Acanthodium',
