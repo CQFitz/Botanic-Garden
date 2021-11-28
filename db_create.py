@@ -2,7 +2,6 @@ import sqlalchemy
 
 from config import app_config
 from app.database import db_session, engine
-from app.models import Base, Famillies, PlantHierarchies, Locations, Plants, PlantLocations
 import app.models as models
 
 FAMILLIES = [
@@ -146,7 +145,7 @@ if __name__ == '__main__':
         database_empty = True
 
     print("Creating all tables...")
-    Base.metadata.create_all(bind=engine)
+    models.Base.metadata.create_all(bind=engine)
 
     famillies_test = models.Famillies.query.first()
     if not famillies_test:
