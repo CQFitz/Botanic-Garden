@@ -13,9 +13,9 @@ This guide assumes you are using linux, and good with command line.
 - Install `pyenv`
 - Install `pyenv-virtualenv`
 - Install python 3.8.7 with `pyenv` and create virtual project for this project:
-    - `pyenv install 3.8.7`
-    - `pyenv virtualenv 3.8.7 botanic-garden`
-    - `pyenv activate botanic-garden`
+    - `$ pyenv install 3.8.7`
+    - `$ pyenv virtualenv 3.8.7 botanic-garden`
+    - `$ pyenv activate botanic-garden`
 - Install dependencies with `pip install -r requirements.txt`
 - Set `$ export FLASK_CONFIG='development'` for working in development
 
