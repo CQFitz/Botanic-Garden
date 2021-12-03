@@ -3,13 +3,71 @@
 {% block title %}{{ config.SITE_NAME }} {% endblock %}
 {% block body %}
 <h3>Welcome to Botanic Garden</h3>
-<!-- List group -->
-<div class="list-group" id="myList" role="tablist">
-  <p class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Home</p>
-  <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('famillies.famillies') }}"  role="tab">Famillies</a>
-  <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('plant_hierarchies.plant_hierarchies') }}" role="tab">Plant Hierarchies</a>
-  <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('plants.plants') }}" role="tab">Plants</a>
-  <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('locations.locations') }}" role="tab">Locations</a>
+<div class="row">
+	<div class="col-md-8">
+		<div class="card mb-3">
+			<div class="card-body">
+				<h5 class="card-title">Families name get from plant id</h5>
+				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+		 	</div>
+		</div>
+		<div class="card mb-3">
+			<div class="card-body">
+			   <h5 class="card-title">Plant Hierarchy name main no sub</h5>
+			   <h6 class="card-subtitle mb-2 text-muted ">if there sub mention it</h6>
+			   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			</div>
+		</div>
+		<div class="card">
+		  <div class="card-body">
+			<h5 class="card-title">Plant Detail get all same plant hieararchy</h5>
+			<ul class="list-group list-group-horizontal">
+				<li class="list-group-item flex-fill">An item</li>
+				<li class="list-group-item flex-fill">A second item</li>
+				<li class="list-group-item flex-fill">A third item</li>
+			</ul>
+			  <ul class="list-group list-group-horizontal-sm">
+				<li class="list-group-item flex-fill">An item</li>
+				<li class="list-group-item flex-fill">A second item</li>
+				<li class="list-group-item flex-fill">A third item</li>
+			</ul>
+			  <ul class="list-group list-group-horizontal-md">
+				<li class="list-group-item flex-fill">An item</li>
+				<li class="list-group-item flex-fill">A second item</li>
+				<li class="list-group-item flex-fill">A third item</li>
+			</ul>
+			  <ul class="list-group list-group-horizontal-lg">
+				<li class="list-group-item flex-fill">An item</li>
+				<li class="list-group-item flex-fill">A second item</li>
+				<li class="list-group-item flex-fill">A third item</li>
+			</ul>
+			  <ul class="list-group list-group-horizontal-xl">
+				<li class="list-group-item flex-fill">An item</li>
+				<li class="list-group-item flex-fill">A second item</li>
+				<li class="list-group-item flex-fill">A third item</li>
+			</ul>
+			  <ul class="list-group list-group-horizontal-xxl">
+				<li class="list-group-item flex-fill">An item</li>
+				<li class="list-group-item flex-fill">A second item</li>
+				<li class="list-group-item flex-fill">A third item</li>
+			</ul>
+			<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+			b5
+		  </div>
+		</div>
+
+	</div>
+	<!-- List group -->
+	<div class="col-md-4">
+		<div class="list-group" id="myList" role="tablist">
+			<p class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Home</p>
+			<a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('famillies.famillies') }}"  role="tab">Famillies</a>
+			<a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('plant_hierarchies.plant_hierarchies') }}" role="tab">Plant Hierarchies</a>
+			<a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('plants.plants') }}" role="tab">Plants</a>
+			<a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('locations.locations') }}" role="tab">Locations</a>
+		</div>
+	</div>
+	<!-- List group end -->
 </div>
 
 {% endblock %}
