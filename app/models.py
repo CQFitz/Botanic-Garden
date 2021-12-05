@@ -50,6 +50,7 @@ class PlantHierarchies(Base):
     parent_plant_hierarchy_id = Column(Integer, ForeignKey('plant_hierarchies.plant_hierarchy_id'), index=True, default=None)
     plant_hierarchy_name = Column(String(60), index=True)
     plant_hierarchy_details = Column(String(200))
+    # More details can be put after this
     plant = relationship("Plants", back_populates="plant_hierarchy", cascade='all, delete-orphan')
 
     def __init__(self, name=None, details=None, hierarchy_from=None):
@@ -100,6 +101,7 @@ class Plants(Base):
     plant_hierarchy_id = Column(Integer, ForeignKey('plant_hierarchies.plant_hierarchy_id'), nullable=False)
     family_id = Column(Integer, ForeignKey('famillies.family_id'), nullable=False)
     plant_details = Column(String(100), nullable=False)
+    # More plant details can be put after this
     plant_hierarchy = relationship("PlantHierarchies", back_populates="plant")
     family = relationship("Famillies", back_populates="plant")
     plant_location = relationship("PlantLocations", back_populates="plant", cascade='all, delete-orphan')
@@ -139,7 +141,7 @@ class Locations(Base):
 
     location_id = Column(Integer, primary_key=True)
     location_name = Column(String(60), index=True)
-    # posisi lokasi, macam dekat baris mana, letak kat bahagian mana...
+    # posisi lokasi, macam dekat mana, berada kat tempat mana...
     location_position = Column(String(100))
     plant_location = relationship("PlantLocations")
 
