@@ -7,7 +7,7 @@
 	<div class="col-md-8">
 		<div class="card mb-3">
 			<div class="card-body">
-				<h5 class="card-title">{{family.family_name}}</h5>
+				<h5 class="card-title"><a href="{{url_for('famillies.view', family_id=family.family_id)}}">{{family.family_name}}</a></h5>
 				<p class="card-text">{{family.family_details}}</p>
 				<p class="card-text">{{family.family_description}}</p>
 		 	</div>
@@ -25,7 +25,10 @@
 		</div>
 		<div class="card">
 			<div class="card-body">
-				<h5 class="card-title">{{plant.plant_details}}</h5>
+				<h5 class="card-title">Plant Names</h5>
+				{% for p in plants %}
+					<li class="list-group-item"><a href="{{url_for('plants.view', plant_id=p.plant_id)}}">{{p.plant_details}}</a></li>
+				{% endfor %}
 				<ul class="list-group list-group-horizontal list-group-flush">
 					<li class="list-group-item flex-fill">An item</li>
 					<li class="list-group-item flex-fill">A second item</li>
