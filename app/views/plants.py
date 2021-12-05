@@ -9,7 +9,7 @@ bp = flask.Blueprint('plants', __name__)
 @bp.route('/plants/')
 def plants():
     query = models.Plants.query.all()
-    url = flask.url_for('plants.new_plant')
+    url = flask.url_for('plants.new')
     if not query:
         flask.flash(flask.Markup("It Seems to be there is nothing in the Plant database. Try to add something"), 'warning')
         return flask.redirect(url)
@@ -18,7 +18,7 @@ def plants():
 
 
 @bp.route('/plants/view/<plant_id>', methods=['GET', 'POST'])
-def view_plant(plant_id):
+def view(plant_id):
     query = models.Plants.by_id(plant_id)
     if not query:
         flask.abort(404)
@@ -41,10 +41,10 @@ def view_plant(plant_id):
 
 
 @bp.route('/plants/new', methods=['GET', 'POST'])
-def new_plant():
+def new():
     form = forms.Plants(flask.request.form)
     location_query = None
-    url = flask.url_for('plants.new_plant')
+    url = flask.url_for('plants.new')
 
     form.plant_hierarchy_id.choices = [('0','Please Choose')] + [(g.plant_hierarchy_id, g.plant_hierarchy_name) for g in models.PlantHierarchies.query.order_by('plant_hierarchy_name')]
     form.family_id.choices = [('0','Please Choose')] + [(g.family_id, g.family_name) for g in models.Famillies.query.order_by('family_name')]
@@ -53,7 +53,7 @@ def new_plant():
     if flask.request.method == 'POST' and form.validate():
         if form.plant_hierarchy_id.data == 0 or form.family_id.data == 0:
             flask.flash(flask.Markup("Plase Select the right selectable section"), 'danger')
-            return flask.render_template('plants/new_plant.html', form=form)
+            return flask.render_template('plants/new.html', form=form)
 
         elif form.location_name.data == '' and form.location_position.data == '' and form.location_id.data == 0:
             flask.flash(flask.Markup("Location name and location position not filled, you can fill it later"), 'info')
@@ -95,11 +95,11 @@ def new_plant():
         flask.flash(flask.Markup("Successfully add new plant!"), 'success')
         return flask.redirect(url)
 
-    return flask.render_template('plants/new_plant.html', form=form)
+    return flask.render_template('plants/new.html', form=form)
 
 
 @bp.route('/plants/edit/<plant_id>', methods=['GET', 'POST'])
-def update_plant(plant_id):
+def update(plant_id):
     form = forms.Plants(flask.request.form)
     remove_form = forms.RemoveForm()
 
@@ -112,7 +112,7 @@ def update_plant(plant_id):
     hierarchies_query = models.PlantHierarchies.by_id(query.plant_hierarchy_id)
     famillies_query = models.Famillies.by_id(query.family_id)
 
-    url = flask.url_for('plants.view_plant', plant_id=plant_id)
+    url = flask.url_for('plants.view', plant_id=plant_id)
 
     form.plant_hierarchy_id.choices = [(hierarchies_query.plant_hierarchy_id, '( SELECTED ) | ' + hierarchies_query.plant_hierarchy_name)] + [(g.plant_hierarchy_id, g.plant_hierarchy_name) for g in models.PlantHierarchies.query.order_by('plant_hierarchy_name')]
     form.family_id.choices = [(famillies_query.family_id, '( SELECTED ) | ' + famillies_query.family_name)] + [(g.family_id, g.family_name) for g in models.Famillies.query.order_by('family_name')]

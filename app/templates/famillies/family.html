@@ -15,7 +15,7 @@
             <div class="card-body">
                 <h5 class="card-title">Description</h5>
                 <p class="cart-text">{{ family.family_description }}</p>
-                <a href="{{ url_for('famillies.update_family', family_id=family.family_id) }}" class="btn btn-primary">Edit</a>
+                <a href="{{ url_for('famillies.update', family_id=family.family_id) }}" class="btn btn-primary">Edit</a>
             </div>
           </div>
     </div>
@@ -24,7 +24,7 @@
             <li class="list-group-item active" aria-current="true">Related Plants</li>
                 {% if plants %}
 					{% for plant in plants %}
-						<a class="list-group-item" href="{{ url_for('plants.view_plant', plant_id=plant.plant_id)}}">{{ plant.plant_details }}</a>
+						<a class="list-group-item" href="{{ url_for('plants.view', plant_id=plant.plant_id)}}">{{ plant.plant_details }}</a>
 					{% endfor %}
 				{% else %}
 				<li class="list-group-item">None</li>

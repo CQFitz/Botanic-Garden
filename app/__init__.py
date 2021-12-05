@@ -24,9 +24,27 @@ def create_app(config_name):
     @app.route('/')
     def botanic_garden():
         random_plant = models.Plants.query.order_by(func.random()).first()
-        get_family = models.Famillies.by_id(random_plant.family_id)
-        get_hieararchies = models.PlantHierarchies.query.filter_by(plant_hierarchy_id=random_plant.plant_hierarchy_id)
-        get_parent_hieararchies = models.PlantHierarchies.query.filter_by(parent_plant_hierarchy_id=random_plant.plant_hierarchy_id)
-        return flask.render_template('site.html', family=get_family, hierarchies=get_hieararchies, parent_hierarchies=get_parent_hieararchies)
+
+        get_family=None
+        get_hieararchies=None
+        get_parent_hieararchies=None
+        get_main_hieararchy=None
+        get_main_sub_hieararchy=None
+
+        try:
+            get_family = models.Famillies.by_id(random_plant.family_id)
+            get_hieararchies = models.PlantHierarchies.query.filter_by(parent_plant_hierarchy_id=random_plant.plant_hierarchy_id)
+            get_parent_hieararchies = models.PlantHierarchies.query.filter_by(plant_hierarchy_id=random_plant.plant_hierarchy_id)
+            
+            get_main_sub_hieararchy = models.PlantHierarchies.query.filter_by(parent_plant_hierarchy_id=random_plant.plant_hierarchy_id).first()
+            get_main_hieararchy = models.PlantHierarchies.query.filter_by(plant_hierarchy_id=get_main_sub_hieararchy.parent_plant_hierarchy_id).first()
+        
+        except:
+            get_main_sub_hieararchy = models.PlantHierarchies.query.filter_by(plant_hierarchy_id=random_plant.plant_hierarchy_id).first()
+            get_main_hieararchy = models.PlantHierarchies.query.filter_by(plant_hierarchy_id=get_main_sub_hieararchy.parent_plant_hierarchy_id).first()
+        
+            ''
+
+        return flask.render_template('site.html', plant=random_plant, family=get_family, hierarchies=get_hieararchies, parent_hierarchies=get_parent_hieararchies, hierarchy=get_main_hieararchy)
 
     return app

@@ -10,7 +10,7 @@
     <div class="col-md-4 mb-3">
         <div class="list-group">
           <p class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Plant</p>
-          <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('plants.new_plant') }}" role="tab">New</a>
+          <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('plants.new') }}" role="tab">New</a>
         </div>
     </div>
     <div class="col-md-12">
@@ -29,9 +29,9 @@
                 {% for plant in plants_query %}
                 <tr>
                     <th scope="row">{{ plant.plant_id }}</th>
-                    <td><a href="{{ url_for('plant_hierarchies.view_plant_hierarchy', plant_hierarchy_id=plant.plant_hierarchy_id) }}">{{ plant.plant_hierarchy_id }}</a></td>
-                    <td><a href="{{ url_for('famillies.view_family', family_id=plant.family_id) }}">{{ plant.family_id }}</a></td>
-                    <td><a href="{{ url_for('plants.view_plant', plant_id=plant.plant_id) }}">{{ plant.plant_details }}</a></td>
+                    <td><a href="{{ url_for('plant_hierarchies.view', plant_hierarchy_id=plant.plant_hierarchy_id) }}">{{ plant.plant_hierarchy_id }}</a></td>
+                    <td><a href="{{ url_for('famillies.view', family_id=plant.family_id) }}">{{ plant.family_id }}</a></td>
+                    <td><a href="{{ url_for('plants.view', plant_id=plant.plant_id) }}">{{ plant.plant_details }}</a></td>
                     <td>{{ plant }}</td>
                 </tr>
                 {% endfor %}

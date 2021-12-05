@@ -7,53 +7,31 @@
 	<div class="col-md-8">
 		<div class="card mb-3">
 			<div class="card-body">
-				<h5 class="card-title">Families name get from plant id</h5>
-				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+				<h5 class="card-title">{{family.family_name}}</h5>
+				<p class="card-text">{{family.family_details}}</p>
+				<p class="card-text">{{family.family_description}}</p>
 		 	</div>
 		</div>
 		<div class="card mb-3">
 			<div class="card-body">
-			   <h5 class="card-title">Plant Hierarchy name main no sub</h5>
-			   <h6 class="card-subtitle mb-2 text-muted ">if there sub mention it</h6>
-			   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+				<h5 class="card-title"><a href="{{url_for('plant_hierarchies.view', plant_hierarchy_id=hierarchy.plant_hierarchy_id)}}">{{hierarchy.plant_hierarchy_name}}</a></h5>
+				<p class="card-text">{{hierarchy.plant_hierarchy_details}}</p>
+				<ol class="list-group list-group-flush">
+				{% for phs in parent_hierarchies %}
+					<li class="list-group-item"><a href="{{url_for('plant_hierarchies.view', plant_hierarchy_id=phs.plant_hierarchy_id)}}">{{phs.plant_hierarchy_name}}</a></li>
+				{% endfor %}
+				</ol>
 			</div>
 		</div>
 		<div class="card">
-		  <div class="card-body">
-			<h5 class="card-title">Plant Detail get all same plant hieararchy</h5>
-			<ul class="list-group list-group-horizontal">
-				<li class="list-group-item flex-fill">An item</li>
-				<li class="list-group-item flex-fill">A second item</li>
-				<li class="list-group-item flex-fill">A third item</li>
-			</ul>
-			  <ul class="list-group list-group-horizontal-sm">
-				<li class="list-group-item flex-fill">An item</li>
-				<li class="list-group-item flex-fill">A second item</li>
-				<li class="list-group-item flex-fill">A third item</li>
-			</ul>
-			  <ul class="list-group list-group-horizontal-md">
-				<li class="list-group-item flex-fill">An item</li>
-				<li class="list-group-item flex-fill">A second item</li>
-				<li class="list-group-item flex-fill">A third item</li>
-			</ul>
-			  <ul class="list-group list-group-horizontal-lg">
-				<li class="list-group-item flex-fill">An item</li>
-				<li class="list-group-item flex-fill">A second item</li>
-				<li class="list-group-item flex-fill">A third item</li>
-			</ul>
-			  <ul class="list-group list-group-horizontal-xl">
-				<li class="list-group-item flex-fill">An item</li>
-				<li class="list-group-item flex-fill">A second item</li>
-				<li class="list-group-item flex-fill">A third item</li>
-			</ul>
-			  <ul class="list-group list-group-horizontal-xxl">
-				<li class="list-group-item flex-fill">An item</li>
-				<li class="list-group-item flex-fill">A second item</li>
-				<li class="list-group-item flex-fill">A third item</li>
-			</ul>
-			<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-			b5
-		  </div>
+			<div class="card-body">
+				<h5 class="card-title">{{plant.plant_details}}</h5>
+				<ul class="list-group list-group-horizontal list-group-flush">
+					<li class="list-group-item flex-fill">An item</li>
+					<li class="list-group-item flex-fill">A second item</li>
+					<li class="list-group-item flex-fill">A third item</li>
+				</ul>
+			</div>
 		</div>
 
 	</div>

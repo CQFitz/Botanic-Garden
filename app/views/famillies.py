@@ -9,7 +9,7 @@ bp = flask.Blueprint('famillies', __name__)
 @bp.route('/famillies/')
 def famillies():
     query = models.Famillies.query.all()
-    url = flask.url_for('famillies.new_family')
+    url = flask.url_for('famillies.new')
     if not query:
         flask.flash(flask.Markup("It Seems to be there is nothing in the famillies database. Try to add something"), 'warning')
         return flask.redirect(url)
@@ -20,7 +20,7 @@ def famillies():
 
 
 @bp.route('/famillies/view/<family_id>', methods=['GET', 'POST'])
-def view_family(family_id):
+def view(family_id):
     query = models.Famillies.by_id(family_id)
     plants_query = models.Plants.query.filter_by(family_id=query.family_id)
 
@@ -29,15 +29,15 @@ def view_family(family_id):
 
     form = None
 
-    url = flask.url_for('famillies.view_family', family_id=query.family_id)
+    url = flask.url_for('famillies.view', family_id=query.family_id)
 
     return flask.render_template('famillies/family.html', family=query, plants=plants_query)
 
 
 @bp.route('/famillies/new', methods=['GET', 'POST'])
-def new_family():
+def new():
     form = forms.Famillies(flask.request.form)
-    url = flask.url_for('famillies.new_family')
+    url = flask.url_for('famillies.new')
     if flask.request.method == 'POST' and form.validate():
         query = models.Famillies(
             form.family_name.data,
@@ -50,16 +50,16 @@ def new_family():
         flask.flash(flask.Markup("Successfully add new famillies!"), 'success')
         return flask.redirect(url)
 
-    return flask.render_template('famillies/new_family.html', form=form)
+    return flask.render_template('famillies/new.html', form=form)
 
 
 @bp.route('/famillies/edit/<family_id>', methods=['GET', 'POST'])
-def update_family(family_id):
+def update(family_id):
     form = forms.Famillies(flask.request.form)
     related_plants = models.Plants.related_family_plant(family_id)
     remove_form = forms.RemoveForm()
     query = models.Famillies.by_id(family_id)
-    url = flask.url_for('famillies.view_family', family_id=query.family_id)
+    url = flask.url_for('famillies.view', family_id=query.family_id)
     if flask.request.method == 'POST' and form.validate():
         query.family_name = form.family_name.data
         query.family_details = form.family_details.data

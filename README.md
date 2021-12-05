@@ -3,6 +3,7 @@
 ## ToDo
 - Better guide
 - Better comment
+- Know what im doing.
 
 ## Set Up Development
 This project uses python 3.8.

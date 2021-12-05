@@ -23,23 +23,23 @@
                 {% endif %}
             </div>
             <div class="card-body text-end">
-                <a href="{{ url_for('plants.update_plant', plant_id=plant.plant_id) }}" class="btn btn-primary">Edit</a>
+                <a href="{{ url_for('plants.update', plant_id=plant.plant_id) }}" class="btn btn-primary">Edit</a>
             </div>
           </div>
     </div>
     <div class="col-md-4">
         <ul class="list-group">
             <li class="list-group-item active" aria-current="true">From Family</li>
-                <a class="list-group-item" href="{{ url_for('famillies.view_family', family_id=family.family_id)}}">{{ family.family_name }}</a>
+                <a class="list-group-item" href="{{ url_for('famillies.view', family_id=family.family_id)}}">{{ family.family_name }}</a>
             <li class="list-group-item active" aria-current="true">From Hierarchies</li>
-                <a class="list-group-item" href="{{ url_for('plant_hierarchies.view_plant_hierarchy', plant_hierarchy_id=hierarchy.plant_hierarchy_id)}}">{{ hierarchy.plant_hierarchy_name }}</a>
+                <a class="list-group-item" href="{{ url_for('plant_hierarchies.view', plant_hierarchy_id=hierarchy.plant_hierarchy_id)}}">{{ hierarchy.plant_hierarchy_name }}</a>
             <li class="list-group-item active" aria-current="true">Plant from same Family</li>
             {% if same_family_plant %}
                 {% for info in same_family_plant %}
                     {% if info.plant_id == plant.plant_id %}
                         <li class="list-group-item list-group-item-primary">{{ info.plant_details }}</li>
                     {% else %}
-                        <a class="list-group-item" href="{{ url_for('plants.view_plant', plant_id=info.plant_id) }}">{{ info.plant_details }}</a>
+                        <a class="list-group-item" href="{{ url_for('plants.view', plant_id=info.plant_id) }}">{{ info.plant_details }}</a>
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -49,7 +49,7 @@
                     {% if info.plant_id == plant.plant_id %}
                         <li class="list-group-item list-group-item-primary">{{ info.plant_details }}</li>
                     {% else %}
-                        <a class="list-group-item" href="{{ url_for('plants.view_plant', plant_id=info.plant_id) }}">{{ info.plant_details }}</a>
+                        <a class="list-group-item" href="{{ url_for('plants.view', plant_id=info.plant_id) }}">{{ info.plant_details }}</a>
                     {% endif %}
                 {% endfor %}
             {% endif %}

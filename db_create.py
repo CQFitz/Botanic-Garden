@@ -66,6 +66,21 @@ PLANT_HIERARCHIES = [
         'Acanthopsis carduifolia (L.f.) Schinz',
         'The genus Acanthopsis is in the family Acanthaceae in the major group Angiosperms (Flowering plants).',
         '6'
+    ),
+    (
+        'Araucariaceae',
+        'The family Araucariaceae is in the major group Gymnosperms (Conifers, cycads and allies).',
+        'None'
+    ),
+    (
+        'Agathis',
+        'The genus Agathis is in the family Araucariaceae in the major group Gymnosperms (Conifers, cycads and allies).',
+        '8'
+    ),
+    (
+        'Araucaria',
+        'The genus Araucaria is in the family Araucariaceae in the major group Gymnosperms (Conifers, cycads and allies).',
+        '8'
     )
 ]
 
@@ -83,6 +98,26 @@ PLANTS = [
         '3',
         '1',
         'Acanthopale albosetulosa C.B.Clarke',
+    ),
+    (
+        '9',
+        '2',
+        'Agathis alba (Lam.) Foxw.'
+    ),
+    (
+        '9',
+        '2',
+        'Agathis atropurpurea Hyland'
+    ),
+    (
+        '10',
+        '2',
+        'Araucaria angustifolia (Bertol.) Kuntze'
+    ),
+    (
+        '10',
+        '2',
+        'Araucaria araucana (Molina) K.Koch'
     )
 ]
 

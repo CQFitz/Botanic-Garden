@@ -10,7 +10,7 @@
     <div class="col-md-4 mb-3">
         <div class="list-group">
           <p class="list-group-item list-group-item-action active" data-toggle="list" href="#home" role="tab">Plant Hierarchies</p>
-          <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('plant_hierarchies.new_hierarchy') }}" role="tab">New</a>
+          <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('plant_hierarchies.new') }}" role="tab">New</a>
         </div>
     </div>
     <div class="col-md-12">
@@ -30,7 +30,7 @@
                 <tr>
                     <th scope="row">{{ plant_hiearchy.plant_hierarchy_id }}</th>
                     <td>{{ plant_hiearchy.parent_plant_hierarchy_id }}</td>
-                    <td><a href="{{ url_for('plant_hierarchies.view_plant_hierarchy', plant_hierarchy_id=plant_hiearchy.plant_hierarchy_id) }}">{{ plant_hiearchy.plant_hierarchy_name }}</a></td>
+                    <td><a href="{{ url_for('plant_hierarchies.view', plant_hierarchy_id=plant_hiearchy.plant_hierarchy_id) }}">{{ plant_hiearchy.plant_hierarchy_name }}</a></td>
                     <td>{{ plant_hiearchy.plant_hierarchy_details }}</td>
                     <td>{{ plant_hiearchy }}</td>
                 </tr>

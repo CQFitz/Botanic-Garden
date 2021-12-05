@@ -9,7 +9,7 @@ bp = flask.Blueprint('plant_hierarchies', __name__)
 @bp.route('/plant_hierarchies/')
 def plant_hierarchies():
     query = models.PlantHierarchies.query.all()
-    url = flask.url_for('plant_hierarchies.new_hierarchy')
+    url = flask.url_for('plant_hierarchies.new')
     if not query:
         flask.flash(flask.Markup("It Seems to be there is nothing in the Plant Hierarchies database. Try to add something"), 'warning')
         return flask.redirect(url)
@@ -20,7 +20,7 @@ def plant_hierarchies():
 
 
 @bp.route('/plant_hierarchies/view/<plant_hierarchy_id>', methods=['GET', 'POST'])
-def view_plant_hierarchy(plant_hierarchy_id):
+def view(plant_hierarchy_id):
     query = models.PlantHierarchies.by_id(plant_hierarchy_id)
     if not query:
         flask.abort(404)
@@ -38,10 +38,10 @@ def view_plant_hierarchy(plant_hierarchy_id):
 
 
 @bp.route('/plant_hierarchies/new', methods=['GET', 'POST'])
-def new_hierarchy():
+def new():
     form = forms.PlantHierarchies(flask.request.form)
     form.parent_plant_hierarchy_id.choices = [('', 'None')]+ [(g.plant_hierarchy_id, g.plant_hierarchy_name) for g in models.PlantHierarchies.query.order_by('plant_hierarchy_name')]
-    url = flask.url_for('plant_hierarchies.new_hierarchy')
+    url = flask.url_for('plant_hierarchies.new')
     if flask.request.method == 'POST' and form.validate():
         if form.parent_plant_hierarchy_id.data != '':
             query = models.PlantHierarchies(
@@ -65,7 +65,7 @@ def new_hierarchy():
 
 
 @bp.route('/plant_hierarchies/edit/<plant_hierarchy_id>', methods=['GET', 'POST'])
-def update_hierarchy(plant_hierarchy_id):
+def update(plant_hierarchy_id):
     selected_hierarchy = 'None'
     query = models.PlantHierarchies.by_id(plant_hierarchy_id)
 
@@ -74,7 +74,7 @@ def update_hierarchy(plant_hierarchy_id):
 
     form = forms.PlantHierarchies(flask.request.form)
     remove_form = forms.RemoveForm()
-    url = flask.url_for('plant_hierarchies.view_plant_hierarchy', plant_hierarchy_id=query.plant_hierarchy_id)
+    url = flask.url_for('plant_hierarchies.view', plant_hierarchy_id=query.plant_hierarchy_id)
 
     if not query:
         flask.abort(404)

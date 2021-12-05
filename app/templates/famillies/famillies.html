@@ -10,7 +10,7 @@
     <div class="col-md-4 mb-3">
         <div class="list-group">
           <p class="list-group-item list-group-item-action active">Famillies</p>
-          <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('famillies.new_family') }}" role="tab">New</a>
+          <a class="list-group-item list-group-item-action" data-toggle="list" href="{{ url_for('famillies.new') }}" role="tab">New</a>
         </div>
     </div>
     <div class="col-md-12">
@@ -29,7 +29,7 @@
                 {% for family in famillies_query %}
                 <tr>
                     <th scope="row">{{ family.family_id }}</th>
-                    <td><a href="{{ url_for('famillies.view_family', family_id=family.family_id) }}">{{ family.family_name }}</a></td>
+                    <td><a href="{{ url_for('famillies.view', family_id=family.family_id) }}">{{ family.family_name }}</a></td>
                     <td>{{ family.family_details }}</td>
                     <td>{{ family.family_description }}</td>
                     <td>{{ family }}</td>

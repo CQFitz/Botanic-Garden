@@ -78,7 +78,7 @@ class PlantHierarchies(Base):
 
     @classmethod
     def related_to(cls, plant_hierarchy_id):
-        related_info = cls.query.filter_by(parent_plant_hierarchy_id=plant_hierarchy_id).first()
+        related_info = cls.query.filter_by(parent_plant_hierarchy_id=plant_hierarchy_id)
         return related_info
 
     @classmethod
@@ -100,7 +100,6 @@ class Plants(Base):
     plant_hierarchy_id = Column(Integer, ForeignKey('plant_hierarchies.plant_hierarchy_id'), nullable=False)
     family_id = Column(Integer, ForeignKey('famillies.family_id'), nullable=False)
     plant_details = Column(String(100), nullable=False)
-    # Mungkin perlukan kot... // memang perlu pun
     plant_hierarchy = relationship("PlantHierarchies", back_populates="plant")
     family = relationship("Famillies", back_populates="plant")
     plant_location = relationship("PlantLocations", back_populates="plant", cascade='all, delete-orphan')

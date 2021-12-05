@@ -8,7 +8,7 @@ bp = flask.Blueprint('locations', __name__)
 @bp.route('/locations/')
 def locations():
     query = models.Locations.query.all()
-    url = flask.url_for('locations.new_location')
+    url = flask.url_for('locations.new')
     if not query:
         flask.flash(flask.Markup("It Seems to be there is nothing in the locations database. Try to add something"), 'warning')
         return flask.redirect(url)
@@ -20,7 +20,7 @@ def locations():
 
 
 @bp.route('/locations/view/<location_id>', methods=['GET', 'POST'])
-def view_location(location_id):
+def view(location_id):
     query = models.Locations.by_id(location_id)
 
     if not query:
@@ -28,15 +28,15 @@ def view_location(location_id):
 
     form = None
 
-    url = flask.url_for('locations.view_location', location_id=query.location_id)
+    url = flask.url_for('locations.view', location_id=query.location_id)
 
     return flask.render_template('locations/location.html', location=query)
 
 
 @bp.route('/locations/new', methods=['GET', 'POST'])
-def new_location():
+def new():
     form = forms.Locations(flask.request.form)
-    url = flask.url_for('locations.new_location')
+    url = flask.url_for('locations.new')
     if flask.request.method == 'POST' and form.validate():
         query = models.Locations(
             form.location_name.data,
@@ -48,11 +48,11 @@ def new_location():
         flask.flash(flask.Markup("Successfully add new location!"), 'success')
         return flask.redirect(url)
 
-    return flask.render_template('locations/new_location.html', form=form)
+    return flask.render_template('locations/new.html', form=form)
 
 
 @bp.route('/locations/edit/<location_id>', methods=['GET', 'POST'])
-def update_location(location_id):
+def update(location_id):
     form = forms.Locations(flask.request.form)
     remove_form = forms.RemoveForm()
     query = models.Locations.by_id(location_id)
